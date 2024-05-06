@@ -1,0 +1,25 @@
+// describe('Appointment API', () => {
+//     it('GET /appointments/:id - should return an appointment when found', async () => {
+//         const req = { params: { id: '1' } };
+//         const res = mockResponse();
+//         const expectedAppointment = { id: '1' };
+    
+//         await appointmentsController.getAppointmentById(req, res);
+//         expect(res.status).toHaveBeenCalledWith(200);
+//         expect(res.json).toHaveBeenCalledWith({ appointment: expectedAppointment });
+//     });
+
+    // it('DELETE /appointments/:id - should delete an appointment', async () => {
+    //     const req = { params: { id: '1' } };
+    //     const res = mockResponse();
+
+    //     Appointment.findByPk = jest.fn().mockResolvedValue({ id: '1' });
+    //     Appointment.destroy = jest.fn().mockResolvedValue(1); 
+
+    //     await appointmentsController.deleteAppointmentById(req, res);
+
+    //     expect(Appointment.findByPk).toHaveBeenCalledWith('1');
+    //     expect(res.status).toHaveBeenCalledWith(200);
+    //     expect(res.end).toHaveBeenCalled();
+    // });
+// });
