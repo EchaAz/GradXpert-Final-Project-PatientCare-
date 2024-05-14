@@ -4,7 +4,7 @@ const authorizeUser = (req, res, next) => {
     const authHeader = req.headers.authorization;
   
     if (!authHeader) {
-      console.log(error.message);
+      // console.log(error.message);
       return res.status(403).json({ error: 'Authorization token is required' });
     }
   
@@ -18,7 +18,7 @@ const authorizeUser = (req, res, next) => {
       req.userId = decodedToken.userId;
       next();
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       return res.status(403).json({ error: 'Invalid or expired token' });
     }
   };
