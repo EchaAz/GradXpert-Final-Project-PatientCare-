@@ -39,7 +39,7 @@ exports.getAllDoctors = async (req, res) => {
 
     res.status(200).json({ doctors, pagination });
   } catch (error) {
-    console.error('Error fetching all doctors:', error);
+    console.error('Error fetching all doctors:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

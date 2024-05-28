@@ -22,7 +22,7 @@ describe('POST /api/appointments', () => {
             time: '2025-04-28T12:00:00',
             description: 'Regular checkup'
         });
-        console.log(response);
+        // console.log(response);
 
         newid = response._body.newAppointment.id
         console.log(newid);
@@ -44,6 +44,20 @@ describe('POST /api/appointments', () => {
         expect(response.statusCode).toBe(400); 
         expect(response.body).toHaveProperty('error');
     });
+
+    it('should return 400 if date is not in the future', async () => {
+        const response = await request(app) 
+        .post('/api/appointments')
+        .set('Authorization', `Bearer ${authToken}`)
+        .send({
+            userId: 1,
+            doctorId: 1,
+            time: '2023-04-28T12:00:00',
+            description: 'Regular checkup'
+        });
+        expect(response.statusCode).toBe(400); 
+        expect(response.body).toHaveProperty('error');
+    });
   
     it('should return 403 if user does not have access', async () => {
       const response = await request(app) 
@@ -58,6 +72,7 @@ describe('POST /api/appointments', () => {
       expect(response.statusCode).toBe(403);
       expect(response.body).toHaveProperty('error');
   });
+
     it('should return 500 if other error occurs', async () => {
       const response = await request(app)
         .post('/api/appointments')

@@ -6,13 +6,14 @@ const jwt = require('jsonwebtoken');
 exports.register = async (req, res) => {
   try {
     const { username, email, password, phoneNumber } = req.body;
-    
+    // console.log("Request Body:", req.body);
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ error: 'Email already exists' });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
+    } 
+    
+    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = await User.create({
       username,
@@ -26,7 +27,7 @@ exports.register = async (req, res) => {
       newUser
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -34,7 +35,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { emailOrUsername, password } = req.body;
-
+    // console.log("Request Body:", req.body);
     const user = await User.findOne({
       where: {
         [Op.or]: [
@@ -60,7 +61,7 @@ exports.login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (error) {
-    // console.log(error);
+    console.log(error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

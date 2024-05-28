@@ -35,13 +35,6 @@ const User = sequelize.define('User', {
   phoneNumber: {
     type: DataTypes.STRING,
     allowNull: true, 
-    validate: {
-      isPhoneNumber(value) {
-        if (value && !/^\+?\d{7,15}$/.test(value)) {
-          throw new Error('Invalid phone number.');
-        }
-      }
-    }
   }
 });
 

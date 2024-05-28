@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit --detectOpenHandles --runInBand --coverage",
+    "test": "jest",
+    "test2": "jest --forceExit --detectOpenHandles --runInBand --coverage",
     "start": "nodemon app.js"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "bcrypt": "^5.1.1",
+    "child_process": "^1.0.2",
     "express": "^4.19.2",
     "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",

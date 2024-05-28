@@ -361,6 +361,205 @@ _500 - Internal Server Error_
     }
     ```
 
+### POST /api/appointments/
+#### Description
+- Post new appointment
+
+#### Request
+- Headers
+    ```json
+    {
+      "Authorization": Bearer <access_token>
+    }
+- Body
+    ```json
+    {
+    "userId": integer,
+    "doctorId":integer,
+    "time": date,
+    "description":string
+    }
+    
+#### Response
+_201 - Ok
+
+- Body
+    ```json
+    {
+        "message": "Appointment created successfully",
+    "newAppointment": {
+        "id": integer,
+        "userId": integer,
+        "doctorId": integer,
+        "time": date,
+        "description": string,
+        "updatedAt": date,
+        "createdAt": date
+    }
+    }
+    ```
+
+_400 - Bad Request_
+- Body
+    ```json
+    {
+        "error": "notNull Violation: Appointment.doctorId cannot be null"
+    }
+    ```
+
+_403 - Forbidden_
+- Body
+    ```json
+    {
+        "error": "Authorization token is required"
+    }
+    ```
+
+_500 - Internal Server Error_
+- Body
+    ```json
+    {
+        "statusCode": 500,
+        "error": "Internal server error"
+    }
+    ```
+
+### GET /api/appointments/:id
+#### Description
+- Get appointment by id    
+
+#### Response
+_200 - Ok
+
+- Body
+    ```json
+    {
+        "appointment": {
+        "id": integer,
+        "userId": integer,
+        "doctorId": integer,
+        "time": date,
+        "description": string,
+        "createdAt": date,
+        "updatedAt": date
+    }
+    }
+    ```
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+        "error": "Appointment not found"
+    }
+    ```
+   
+_500 - Internal Server Error_
+- Body
+    ```json
+    {
+        "statusCode": 500,
+        "error": "Internal server error"
+    }
+    ```
+
+### DELETE /api/appointments/:id
+#### Description
+- Delete appointment by id    
+
+#### Request
+- Headers
+    ```json
+    {
+      "Authorization": Bearer <access_token>
+    }
+
+#### Response
+_200 - Ok
+
+- Body
+    ```json
+    {
+        "message": "Appointment deleted successfully"
+    }
+    ```
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+        "error": "Appointment not found"
+    }
+    ```
+   
+_403 - Forbidden_
+- Body
+    ```json
+    {
+        "error": "Authorization token is required"
+    }
+    ```
+
+_500 - Internal Server Error_
+- Body
+    ```json
+    {
+        "error": "Internal server error"
+    }
+    ```
+### PATCH /api/appointments/:id
+#### Description
+- Edit appointment by id
+
+#### Request
+- Headers
+    ```json
+    {
+      "Authorization": Bearer <access_token>
+    }
+- Body
+    ```json
+    {
+    "userId": integer,
+    "doctorId":integer,
+    "time": date,
+    "description":string
+    }
+    
+#### Response
+_200 - Ok
+
+- Body
+    ```json
+    {
+        "statusCode": 200,
+        "message": "Appointment updated successfully"
+    }
+    ```
+
+_404 - Not Found_
+- Body
+    ```json
+    {
+        "error": "Appointment not found"
+    }
+    ```
+
+_403 - Forbidden_
+- Body
+    ```json
+    {
+        "error": "Authorization token is required"
+    }
+    ```
+
+_500 - Internal Server Error_
+- Body
+    ```json
+    {
+        "error": "Internal server error"
+    }
+    ```
 
 
 
