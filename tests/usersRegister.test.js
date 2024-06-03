@@ -13,7 +13,6 @@ const email = `testuser@example.com`;
 testUserEmails.push(email);
 describe('POST /api/users/register', () => {
     it('should register a new user', async () => {
-        console.log("Halo Ya 1");
         const response = await request(app)
             .post('/api/users/register')
             .send({
@@ -22,8 +21,7 @@ describe('POST /api/users/register', () => {
                 password: 'password123',
                 phoneNumber: '1234567890',
             });
-            console.log("Halo Ya 2");
-        console.log(response.body); 
+        // console.log(response.body); 
 
         expect(response.statusCode).toBe(201);
         expect(response.body).toHaveProperty('message');
@@ -34,7 +32,6 @@ describe('POST /api/users/register', () => {
     });
 
     it('should return 400 if email already exists', async () => {
-        console.log("Halo Ya 3");
         const response = await request(app)
             .post('/api/users/register')
             .send({
@@ -43,19 +40,36 @@ describe('POST /api/users/register', () => {
                 password: 'password123',
                 phoneNumber: '0987654321',
             });
-            console.log("Halo Ya 4");
-        console.log(response.body); 
+        // console.log(response.body); 
 
         expect(response.statusCode).toBe(400);
         expect(response.body).toHaveProperty('error');
         expect(response.body.error).toBe('Email already exists');
     });
 
+    it('should return 400 if password length is less than 5', async () => {
+        const email = `password@example.com`;
+        testUserEmails.push(email);
+
+        const response = await request(app)
+            .post('/api/users/register')
+            .send({
+                username: `newuser`,
+                email: email,
+                password: '123',
+                phoneNumber: '0987654321',
+            });
+        // console.log(response.body); 
+
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toHaveProperty('error');
+        expect(response.body.error).toBe('Password must be at least 5 characters long.');
+    });
+
     it('should return 500 if there is an internal server error', async () => {
         jest.spyOn(User, 'findOne').mockImplementation(() => {
             throw new Error('Internal server error');
         });
-        console.log("Halo Ya 6");
         const email = `error@example.com`;
         testUserEmails.push(email);
 
@@ -67,8 +81,7 @@ describe('POST /api/users/register', () => {
                 password: 'password123',
                 phoneNumber: '1234567890',
             });
-            console.log("Halo Ya 7");
-        console.log(response.body);
+        // console.log(response.body);
 
         expect(response.statusCode).toBe(500);
         expect(response.body).toHaveProperty('error');

@@ -11,6 +11,10 @@ exports.register = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: 'Email already exists' });
     } 
+
+    if (password.length < 5) {
+      return res.status(400).json({ error: 'Password must be at least 5 characters long.' });
+    }
     
     const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
