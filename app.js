@@ -5,8 +5,9 @@ const sequelize = require('./seq');
 const doctorRoutes = require('./routes/doctors');
 const userRoutes = require('./routes/users');
 const appointmentRoutes = require('./routes/appointments');
-const dotenv = require('dotenv');
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 app.use(express.json());
 
@@ -34,5 +35,4 @@ if (require.main === module) {
   const port = process.env.PORT || 3000;
   app.listen(port, console.log(`Server is listening on port ${port}...`));
 }
-
 
